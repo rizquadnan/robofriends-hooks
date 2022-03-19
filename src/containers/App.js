@@ -4,20 +4,20 @@ import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux'
-import { selectSearchField, SET_SEARCH_FIELD } from '../store';
+import { selectSearchField, SET_SEARCH_FIELD, getRobots, selectRobots, selectIsFetchRobotsPending, selectFetchRobotsError } from '../store';
 
 function App() {
-  const [robots, setRobots] = useState([])
-  const [count, setCount] = useState(0) // for demo purposes
-  const searchField = useSelector(selectSearchField);
   const dispatch = useDispatch();
 
+  const robots = useSelector(selectRobots);
+  const isFetchRobotsPending = useSelector(selectIsFetchRobotsPending);
+  const fetchRobotsError = useSelector(selectFetchRobotsError);
+
+  const searchField = useSelector(selectSearchField);
+
   useEffect(()=> {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response=> response.json())
-      .then(users => {setRobots(users)});
-    // console.log(count)
-  },[]) // if you add count, only run if count changes.
+    dispatch(getRobots())
+  },[])
 
   const onSearchChange = (event) => {
     dispatch({ type: SET_SEARCH_FIELD, payload: event.target.value })
@@ -27,7 +27,11 @@ function App() {
     return robot.name.toLowerCase().includes(searchField.toLowerCase());
   })
 
-  return !robots.length ?
+  if (fetchRobotsError) {
+    return <h1>Error fetching robots. Please refresh the page</h1>
+  }
+
+  return isFetchRobotsPending ?
     <h1>Loading</h1> :
     (
       <div className='tc'>

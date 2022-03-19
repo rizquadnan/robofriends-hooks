@@ -1,8 +1,12 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import logger from 'redux-logger'
+import thunk from 'redux-thunk'
 
-import { searchReducer } from "./reducers";
+import { searchReducer, robotsReducer } from './reducers'
 
-let store = createStore(searchReducer, applyMiddleware(logger));
+let store = createStore(
+  combineReducers({ searchReducer, robotsReducer }),
+  applyMiddleware(thunk, logger),
+)
 
-export { store };
+export { store }

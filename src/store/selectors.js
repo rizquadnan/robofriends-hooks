@@ -1,3 +1,11 @@
-const selectSearchField = state => state.searchField;
+const selectSearchField = (state) => state.searchReducer.searchField
+const selectRobots = (state) => state.robotsReducer.robots
+const selectIsFetchRobotsPending = (state) => state.robotsReducer.isPending
+const selectFetchRobotsError = (state) => state.robotsReducer.error
 
-export { selectSearchField }
+export {
+  selectSearchField,
+  selectRobots,
+  selectIsFetchRobotsPending,
+  selectFetchRobotsError,
+}
