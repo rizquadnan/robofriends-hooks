@@ -1,6 +1,6 @@
-import { GET_ROBOTS_PENDING, GET_ROBOTS_SUCCESS, GET_ROBOTS_FAILED } from "./constants"
+import { GET_ROBOTS_PENDING, GET_ROBOTS_SUCCESS, GET_ROBOTS_FAILED, SET_SEARCH_FIELD } from "./constants"
 const setSearchField = (text) => ({
-  type: "SET_SEARCH_FIELD",
+  type: SET_SEARCH_FIELD,
   payload: text 
 });
 
