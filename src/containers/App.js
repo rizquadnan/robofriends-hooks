@@ -3,11 +3,14 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux'
+import { selectSearchField, SET_SEARCH_FIELD } from '../store';
 
 function App() {
   const [robots, setRobots] = useState([])
-  const [searchfield, setSearchfield] = useState('')
   const [count, setCount] = useState(0) // for demo purposes
+  const searchField = useSelector(selectSearchField);
+  const dispatch = useDispatch();
 
   useEffect(()=> {
     fetch('https://jsonplaceholder.typicode.com/users')
@@ -17,11 +20,11 @@ function App() {
   },[]) // if you add count, only run if count changes.
 
   const onSearchChange = (event) => {
-    setSearchfield(event.target.value)
+    dispatch({ type: SET_SEARCH_FIELD, payload: event.target.value })
   }
 
   const filteredRobots = robots.filter(robot =>{
-    return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+    return robot.name.toLowerCase().includes(searchField.toLowerCase());
   })
 
   return !robots.length ?
