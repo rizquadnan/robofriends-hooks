@@ -1,4 +1,3 @@
-import { setSearchField } from "./actions";
 import { GET_ROBOTS_FAILED, GET_ROBOTS_PENDING, GET_ROBOTS_SUCCESS } from "./constants";
 
 const initialSearch = {
