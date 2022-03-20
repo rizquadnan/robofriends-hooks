@@ -6,7 +6,7 @@ const setSearchField = (text) => ({
 
 const getRobots = () => (dispatch) => {
   dispatch({ type: GET_ROBOTS_PENDING });
-  fetch('https://jsonplaceholder.typicode.co/users')
+  fetch('https://jsonplaceholder.typicode.com/users')
       .then(response=> response.json())
       .then(data => dispatch({ type: GET_ROBOTS_SUCCESS, payload: data }))
       .catch(error => dispatch({ type: GET_ROBOTS_FAILED, payload: error }))
